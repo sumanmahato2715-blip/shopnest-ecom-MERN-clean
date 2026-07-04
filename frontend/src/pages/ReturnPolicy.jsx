@@ -1,45 +1,128 @@
-import React from 'react';
-
-const textualStyle = {
-  maxWidth: '900px',
-  margin: '0 auto',
-  padding: '40px',
-  background: '#18181b',
-  borderRadius: '16px',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
-  lineHeight: '1.8',
-  color: '#a1a1aa'
-};
+import React from "react";
 
 const ReturnPolicy = () => {
   return (
-    <div style={textualStyle}>
-      <h2 style={{ color: '#fff', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px' }}>
+    <div
+      style={{
+        maxWidth: "1000px",
+        margin: "40px auto",
+        padding: "40px",
+        background: "#1f1f23",
+        borderRadius: "20px",
+        color: "#ffffff",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+      }}
+    >
+      <h1
+        style={{
+          color: "#f97316",
+          textAlign: "center",
+          marginBottom: "30px",
+          fontSize: "42px",
+        }}
+      >
         Return & Refund Policy
-      </h2>
-      
-      <p style={{ marginBottom: '20px' }}>
-        At ShopNest, we proudly stand behind the quality of our merchandise. If for any reason you are completely disastified with your purchase, you may securely initiate a return within 30 days of receiving your order.
+      </h1>
+
+      <p style={{ fontSize: "18px", lineHeight: "1.9" }}>
+        Thank you for visiting <strong>ShopNest</strong>. This website has been
+        developed by <strong>Suman Kumari</strong> as an academic and portfolio
+        project to demonstrate MERN Stack development skills. Since this project
+        is created for learning and demonstration purposes, the following return
+        and refund policy applies.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>1. Eligibility for Returns</h4>
-      <p style={{ marginBottom: '15px' }}>
-        To be eligible for a return, the item must be completely unused, housed in the same absolute condition that it was received, and maintained within its original factory packaging. Receipts or proof of purchase mappings are strictly required.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>1. Demonstration Project</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        ShopNest is not a commercial e-commerce platform. The products,
+        categories, prices, and order details displayed on this website are
+        intended solely for educational and portfolio demonstration.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>2. Refund Processing</h4>
-      <p style={{ marginBottom: '15px' }}>
-        Once your return is physically received and internally inspected, an immediate email protocol will fire notifying you of the approval status. Approved refunds will cleanly propagate to your original designated Razorpay gateway endpoint within 5-7 business working days naturally.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>2. Orders & Returns</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        Orders placed through this project are simulated for demonstration
+        purposes only. Therefore, real product shipping, exchanges, returns, or
+        refunds are not processed.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>3. Exempted Output Goods</h4>
-      <p style={{ marginBottom: '15px' }}>
-        Certain explicit categories such as perishable items, custom software, digital media, or physically tampered items are heavily restricted and do not qualify for any standard refund sequence.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>3. Payment Information</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        Payment functionality is integrated only in Sandbox/Test Mode for
+        development and learning. No real financial transactions are processed
+        through this application.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>4. Shipping Transit Costs</h4>
-      <p>
-        You will actively remain strictly responsible for covering your own outbound logistical shipping rates associated with returning the item. Restocking fees may conditionally apply.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>4. Product Information</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        Product names, descriptions, prices, ratings, and images are displayed
+        only to demonstrate the functionality of an e-commerce application.
+        They should not be considered actual commercial listings.
+      </p>
+
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>5. Project Features</h2>
+
+      <ul
+        style={{
+          fontSize: "17px",
+          lineHeight: "2",
+          paddingLeft: "25px",
+        }}
+      >
+        <li>User Authentication</li>
+        <li>Admin Dashboard</li>
+        <li>Product Management</li>
+        <li>Shopping Cart</li>
+        <li>Wishlist</li>
+        <li>Order Management</li>
+        <li>Cloudinary Image Upload</li>
+        <li>Razorpay Test Payment Integration</li>
+      </ul>
+
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>6. Contact</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.9" }}>
+        <strong>Developer:</strong> Suman Kumari
+        <br />
+        <strong>Program:</strong> B.Tech – Electronics & Communication
+        Engineering
+        <br />
+        <strong>Institute:</strong> National Institute of Technology Calicut
+        (NIT Calicut)
+        <br />
+        <strong>Email:</strong> sumanmahato2715@gmail.com
+        <br />
+        <strong>GitHub:</strong> github.com/sumanmahato2715-blip
+      </p>
+
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <p
+        style={{
+          textAlign: "center",
+          color: "#9ca3af",
+          marginTop: "20px",
+          fontStyle: "italic",
+        }}
+      >
+        Thank you for exploring ShopNest. This project has been developed for
+        academic learning and portfolio demonstration using the MERN Stack.
       </p>
     </div>
   );

@@ -1,44 +1,109 @@
-import React from 'react';
-
-const textualStyle = {
-  maxWidth: '900px',
-  margin: '0 auto',
-  padding: '40px',
-  background: '#18181b',
-  borderRadius: '16px',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
-  lineHeight: '1.8',
-  color: '#a1a1aa'
-};
+import React from "react";
 
 const Disclaimer = () => {
   return (
-    <div style={textualStyle}>
-      <h2 style={{ color: '#fff', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px' }}>
-        Legal & Site Disclaimer
-      </h2>
-      
-      <p style={{ marginBottom: '20px' }}>
-        The data, interfaces, and graphical components represented across the ShopNest domain strictly act uniquely as an educational development platform. This codebase models rigorous application structures and architectures for purely demonstrative, portfolio-oriented engineering usage.
+    <div
+      style={{
+        maxWidth: "1000px",
+        margin: "40px auto",
+        padding: "40px",
+        background: "#1f1f23",
+        borderRadius: "20px",
+        color: "#ffffff",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+      }}
+    >
+      <h1
+        style={{
+          color: "#f97316",
+          textAlign: "center",
+          marginBottom: "30px",
+          fontSize: "42px",
+        }}
+      >
+        Disclaimer
+      </h1>
+
+      <p style={{ fontSize: "18px", lineHeight: "1.9" }}>
+        Welcome to <strong>ShopNest</strong>. This website has been created as
+        an academic and portfolio project by <strong>Suman Kumari</strong> to
+        demonstrate practical skills in Full Stack Web Development using the
+        MERN Stack.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>1. Accuracy of Materials</h4>
-      <p style={{ marginBottom: '15px' }}>
-        The materials spanning the ShopNest interface may heavily include dynamic technical, typographical, or dummy photographic elements. Product matrices mapped in the DB pipeline do absolutely not correlate to strictly real physical outputs and are safely populated via generic Unsplash imagery protocols.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>Project Purpose</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        ShopNest is designed for learning, demonstration, and portfolio
+        purposes. It showcases modern e-commerce functionality including user
+        authentication, product management, shopping cart, wishlist, order
+        management, admin dashboard, secure login, Cloudinary image upload, and
+        online payment integration in a testing environment.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>2. Payment Processing Restrictions</h4>
-      <p style={{ marginBottom: '15px' }}>
-        No authentic financial variables are handled natively within this environment. All payment endpoints forcefully bind exclusively to external testing-based networks (Sandbox Razorpay environments). No exact deductibles exist.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>Products & Content</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        The products, images, prices, descriptions, and other information shown
+        on this website are provided only for demonstration purposes. They do
+        not represent a real online business or commercial store.
       </p>
 
-      <h4 style={{ color: '#f97316', marginTop: '25px', marginBottom: '10px' }}>3. External Binding Links</h4>
-      <p style={{ marginBottom: '15px' }}>
-        ShopNest operates completely independent domains and takes strictly zero absolute parameter responsibility over the specific contents or behaviors populated via external routing anchors generated implicitly by third-party configurations. 
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>Payments</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        Payment functionality is configured only for testing and development.
+        No real financial transactions are intended through this portfolio
+        project.
       </p>
 
-      <p style={{ marginTop: '30px', fontStyle: 'italic', fontSize: '0.9rem' }}>
-        By interacting natively within this codebase, you unconditionally signal acceptance bounded by these parameters efficiently.
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>Copyright</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        Any product names, trademarks, logos, or brand references displayed in
+        this project belong to their respective owners and are used only for
+        educational and demonstration purposes.
+      </p>
+
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <h2 style={{ color: "#f97316" }}>Developer Information</h2>
+
+      <p style={{ fontSize: "17px", lineHeight: "1.8" }}>
+        <strong>Developer:</strong> Suman Kumari
+        <br />
+        <strong>Program:</strong> B.Tech – Electronics & Communication
+        Engineering
+        <br />
+        <strong>Institute:</strong> National Institute of Technology Calicut
+        (NIT Calicut)
+        <br />
+        <strong>Email:</strong> sumanmahato2715@gmail.com
+        <br />
+        <strong>GitHub:</strong> github.com/sumanmahato2715-blip
+      </p>
+
+      <hr style={{ margin: "30px 0", border: "1px solid #333" }} />
+
+      <p
+        style={{
+          textAlign: "center",
+          color: "#9ca3af",
+          marginTop: "20px",
+          fontStyle: "italic",
+        }}
+      >
+        Thank you for visiting ShopNest. This project represents my learning
+        journey and practical implementation of modern web development
+        technologies.
       </p>
     </div>
   );
