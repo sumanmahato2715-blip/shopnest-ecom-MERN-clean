@@ -13,8 +13,8 @@ useEffect(() => {
         setOrders(Array.isArray(data) ? data : []);
       } else {
         if (res.status === 401) {
-          logout();
-          navigate('/login');
+           logout();
+           navigate('/login');
         }
         setOrders([]);
       }
