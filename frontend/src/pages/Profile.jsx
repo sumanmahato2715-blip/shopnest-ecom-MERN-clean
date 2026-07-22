@@ -25,4 +25,4 @@ useEffect(() => {
     }
   };
   fetchMyOrders();
-}, [user, navigate]);
+}, [user, navigate, logout]);
