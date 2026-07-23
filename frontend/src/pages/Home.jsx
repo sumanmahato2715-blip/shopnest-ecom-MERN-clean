@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import ProductCard from '../components/ProductCard';
+import React, { useEffect, useState } from "react";
+import ProductCard from "../components/ProductCard";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -8,15 +8,23 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/products');
-        const data = await res.json();
-        setProducts(data.slice(0, 4)); // Featured products
+        const response = await fetch(
+          "https://shopnest-ecom-mern-clean-production.up.railway.app/api/products"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+        setProducts(data.slice(0, 4));
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchProducts();
   }, []);
 
@@ -26,14 +34,20 @@ const Home = () => {
         <h1>Welcome to ShopNest</h1>
         <p>Discover the best products at unbeatable prices.</p>
       </div>
+
       <h2>Featured Products</h2>
+
       {loading ? (
         <div>Loading...</div>
       ) : (
         <div className="product-grid">
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            <p>No products found.</p>
+          )}
         </div>
       )}
     </div>
