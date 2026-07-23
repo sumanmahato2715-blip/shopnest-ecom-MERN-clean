@@ -15,13 +15,15 @@ const app = express();
 // Middleware
 app.use(express.json());
 
+// CORS Configuration
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://127.0.0.1:3000",
-      process.env.FRONTEND_URL,
+      "https://shopnest-frontend.netlify.app",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -43,5 +45,5 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
