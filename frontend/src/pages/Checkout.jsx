@@ -18,7 +18,7 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     try {
-      const orderRes = await fetch('/api/payment/order', {
+      const orderRes = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/payment/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalPrice })
@@ -43,13 +43,13 @@ const Checkout = () => {
         description: 'Test Transaction',
         order_id: orderData.id,
         handler: async function (response) {
-          const verifyRes = await fetch('/api/payment/verify', {
+          const verifyRes  = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/payment/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(response)
           });
           if (verifyRes.ok) {
-            const saveOrderRes = await fetch('/api/orders', {
+            const saveOrderRes = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders', {
               method: 'POST',
               headers: { 
                 'Content-Type': 'application/json',
@@ -83,7 +83,13 @@ const Checkout = () => {
         }
       };
       
-      const rzp1 = new window.Razorpay(options);
+      if (window.Razorpay) {
+         const rzp1 = new window.Razorpay(options);
+         rzp1.open();
+       } else {
+         alert("Demo Mode: Razorpay not found. Placing test order...");
+         await bypassPayment();
+}
       rzp1.open();
     } catch (error) {
       console.error(error);
@@ -91,7 +97,7 @@ const Checkout = () => {
   };
 
   const bypassPayment = async () => {
-    const saveOrderRes = await fetch('/api/orders', {
+    const saveOrderRes = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
