@@ -90,7 +90,7 @@ const Checkout = () => {
          alert("Demo Mode: Razorpay not found. Placing test order...");
          await bypassPayment();
 }
-      rzp1.open();
+      
     } catch (error) {
       console.error(error);
     }
