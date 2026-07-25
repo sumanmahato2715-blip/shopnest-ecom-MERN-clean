@@ -49,7 +49,7 @@ const Checkout = () => {
         }
       }
 
-      alert('Demo Payment Successful');
+      
       await bypassPayment();
     } catch (error) {
       console.error(error);

@@ -1,25 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const OrderSuccess = () => {
-  const containerStyle = {
-    maxWidth: '600px',
-    margin: '50px auto',
-    padding: '50px 30px',
-    background: '#18181b',
-    borderRadius: '16px',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
-    boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
-    textAlign: 'center'
-  };
+  const orderId = "SN" + Date.now();
 
   return (
-    <div style={containerStyle}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', color: '#10b981' }}>Payment Successful!</h2>
-      <p style={{ color: '#a1a1aa', fontSize: '1.2rem', marginBottom: '40px' }}>
-        Thank you for your order. We have securely received your payment and will process your shipment shortly.
+    <div
+      style={{
+        maxWidth: "700px",
+        margin: "50px auto",
+        padding: "40px",
+        background: "#18181b",
+        borderRadius: "15px",
+        textAlign: "center",
+        color: "white",
+        boxShadow: "0 0 15px rgba(0,0,0,0.4)"
+      }}
+    >
+      <div style={{ fontSize: "70px" }}>✅</div>
+
+      <h1 style={{ color: "#22c55e" }}>
+        Your Order Has Been Placed!
+      </h1>
+
+      <p style={{ fontSize: "18px", color: "#ccc" }}>
+        Thank you for shopping with <b>ShopNest</b>.
       </p>
-      <Link to="/shop" className="btn">Continue Shopping</Link>
+
+      <hr style={{ margin: "30px 0", borderColor: "#333" }} />
+
+      <h3>Payment Status</h3>
+      <p style={{ color: "#22c55e", fontWeight: "bold" }}>
+        Payment Successful
+      </p>
+
+      <h3>Order ID</h3>
+      <p>{orderId}</p>
+
+      <h3>Estimated Delivery</h3>
+      <p>3 - 5 Business Days</p>
+
+      <div style={{ marginTop: "40px" }}>
+        <Link to="/orders">
+          <button
+            style={{
+              padding: "12px 25px",
+              marginRight: "15px",
+              background: "#2563eb",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer"
+            }}
+          >
+            View My Orders
+          </button>
+        </Link>
+
+        <Link to="/shop">
+          <button
+            style={{
+              padding: "12px 25px",
+              background: "#f97316",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer"
+            }}
+          >
+            Continue Shopping
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

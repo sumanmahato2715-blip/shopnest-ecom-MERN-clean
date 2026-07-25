@@ -11,7 +11,7 @@ async function resetPassword() {
     const hashedPassword = await bcrypt.hash("123456", 10);
 
     const result = await User.updateOne(
-      { email: "sumanmahato2715" },
+      { email:  "sumanmahato2715@gmail.com" },
       { $set: { password: hashedPassword } }
     );
 
