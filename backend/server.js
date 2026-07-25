@@ -12,24 +12,22 @@ connectDB();
 
 const app = express();
 
-// Middleware
-app.use(express.json());
-
+// =======================
 // CORS Configuration
+// =======================
 app.use(
   cors({
-    origin: [
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "https://shopnest-frontend.netlify.app",
-  "https://shopnest-ecom-mern-clean.vercel.app",
-],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: true,
     credentials: true,
   })
 );
 
+// Middleware
+app.use(express.json());
+
+// =======================
 // Routes
+// =======================
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
@@ -42,7 +40,9 @@ app.get("/", (req, res) => {
   res.send("🚀 ShopNest Backend API is running successfully!");
 });
 
+// =======================
 // Start Server
+// =======================
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
