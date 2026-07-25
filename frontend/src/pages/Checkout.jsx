@@ -35,61 +35,9 @@ const Checkout = () => {
         }
       }
 
-      const options = {
-        key: 'rzp_test_dummykey123', // Student dummy fallback
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: 'ShopNest',
-        description: 'Test Transaction',
-        order_id: orderData.id,
-        handler: async function (response) {
-          const verifyRes  = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/payment/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(response)
-          });
-          if (verifyRes.ok) {
-            const saveOrderRes = await fetch('https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders', {
-              method: 'POST',
-              headers: { 
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${user.token}`
-              },
-              body: JSON.stringify({
-                items: cartItems,
-                totalAmount: totalPrice,
-                address,
-                paymentId: response.razorpay_payment_id
-              })
-            });
-
-            if (saveOrderRes.ok) {
-              dispatch(clearCart());
-              navigate('/ordersuccess');
-            } else {
-              alert('Order saving failed');
-            }
-          } else {
-            alert('Payment verification failed');
-          }
-        },
-        prefill: {
-          name: address.fullName,
-          email: user?.email,
-          contact: '9999999999'
-        },
-        theme: {
-          color: '#f97316'
-        }
-      };
       
-      if (window.Razorpay) {
-         const rzp1 = new window.Razorpay(options);
-         rzp1.open();
-       } else {
-         alert("Demo Mode: Razorpay not found. Placing test order...");
-         await bypassPayment();
-}
+       alert("Demo Payment Successful");
+       await bypassPayment();
       
     } catch (error) {
       console.error(error);
