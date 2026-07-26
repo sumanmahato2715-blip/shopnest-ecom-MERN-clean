@@ -50,6 +50,7 @@ const Shop = () => {
     try {
      const response = await fetch("https://shopnest-ecom-mern-clean-production.up.railway.app/api/products");
       const data = await response.json();
+      console.log(data);
 
       setProducts(data);
       setFilteredProducts(data);
