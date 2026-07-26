@@ -1,166 +1,40 @@
-import React, { useState, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { clearCart } from '../redux/cartSlice';
+const bypassPayment = async () => {
+  try {
+    console.log("Saving order...");
 
-const Checkout = () => {
-  const { user } = useContext(AuthContext);
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [address, setAddress] = useState({
-    fullName: '',
-    street: '',
-    city: '',
-    postalCode: '',
-    country: ''
-  });
-
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0
-  );
-
-  const handlePayment = async () => {
-    try {
-      const orderRes = await fetch(
-        'https://shopnest-ecom-mern-clean-production.up.railway.app/api/payment/order',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: totalPrice })
-        }
-      );
-
-      // Response read kiya, variable me store nahi kiya
-      await orderRes.json();
-
-      if (!orderRes.ok) {
-        const fallback = window.confirm(
-          'Razorpay keys unconfigured on backend. Use Student Bypass Mode to place test order?'
-        );
-
-        if (fallback) {
-          return bypassPayment();
-        } else {
-          return alert('Payment failed to initialize');
-        }
-      }
-
-      
-      await bypassPayment();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const bypassPayment = async () => {
     const saveOrderRes = await fetch(
-      'https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders',
+      "https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({
           items: cartItems,
           totalAmount: totalPrice,
           address,
-          paymentId: 'bypass_txn_' + Date.now()
-        })
+          paymentId: "bypass_txn_" + Date.now(),
+        }),
       }
     );
 
+    console.log("Status:", saveOrderRes.status);
+
+    const data = await saveOrderRes.json();
+    console.log("Response:", data);
+
     if (saveOrderRes.ok) {
+      alert("Demo Payment Successful!");
+
       dispatch(clearCart());
-      navigate('/ordersuccess');
+
+      navigate("/ordersuccess");
+    } else {
+      alert("Order Save Failed");
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!user) {
-      alert('Please login first');
-      navigate('/login');
-      return;
-    }
-
-    handlePayment();
-  };
-
-  return (
-    <div className="checkout-container">
-      <h2>Checkout</h2>
-
-      <div className="checkout-content">
-        <form onSubmit={handleSubmit} className="shipping-form">
-          <h3>Shipping Address</h3>
-
-          <input
-            type="text"
-            placeholder="Full Name"
-            required
-            value={address.fullName}
-            onChange={(e) =>
-              setAddress({ ...address, fullName: e.target.value })
-            }
-          />
-
-          <input
-            type="text"
-            placeholder="Street"
-            required
-            value={address.street}
-            onChange={(e) =>
-              setAddress({ ...address, street: e.target.value })
-            }
-          />
-
-          <input
-            type="text"
-            placeholder="City"
-            required
-            value={address.city}
-            onChange={(e) =>
-              setAddress({ ...address, city: e.target.value })
-            }
-          />
-
-          <input
-            type="text"
-            placeholder="Postal Code"
-            required
-            value={address.postalCode}
-            onChange={(e) =>
-              setAddress({ ...address, postalCode: e.target.value })
-            }
-          />
-
-          <input
-            type="text"
-            placeholder="Country"
-            required
-            value={address.country}
-            onChange={(e) =>
-              setAddress({ ...address, country: e.target.value })
-            }
-          />
-
-          <div className="checkout-summary">
-            <h4>Total to Pay: ₹{totalPrice.toFixed(2)}</h4>
-
-            <button type="submit" className="btn">
-              Pay Now
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+  } catch (err) {
+    console.error("Order Error:", err);
+    alert("Order Error");
+  }
 };
-
-export default Checkout;
