@@ -35,9 +35,12 @@ const Checkout = () => {
           items: cartItems,
           totalAmount: totalPrice,
           address: {
-            street: "Demo Street",
-            city: "Kozhikode",
-          },
+           fullName: "Suman Kumari",
+           street: "Demo Street",
+           city: "Kozhikode",
+           postalCode: "673001",
+           country: "India",
+},
           paymentId: "DEMO_" + Date.now(),
         }),
       }
