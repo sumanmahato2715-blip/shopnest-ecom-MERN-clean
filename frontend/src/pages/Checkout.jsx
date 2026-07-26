@@ -1,40 +1,47 @@
-const bypassPayment = async () => {
-  try {
-    console.log("Saving order...");
+import React, { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/cartSlice";
+import { AuthContext } from "../context/AuthContext";
 
-    const saveOrderRes = await fetch(
-      "https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          items: cartItems,
-          totalAmount: totalPrice,
-          address,
-          paymentId: "bypass_txn_" + Date.now(),
-        }),
-      }
-    );
+const Checkout = () => {
+  const { user } = useContext(AuthContext);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    console.log("Status:", saveOrderRes.status);
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.qty,
+    0
+  );
 
-    const data = await saveOrderRes.json();
-    console.log("Response:", data);
-
-    if (saveOrderRes.ok) {
-      alert("Demo Payment Successful!");
-
-      dispatch(clearCart());
-
-      navigate("/ordersuccess");
-    } else {
-      alert("Order Save Failed");
+  const handleCheckout = () => {
+    if (!user) {
+      alert("Please login first.");
+      navigate("/login");
+      return;
     }
-  } catch (err) {
-    console.error("Order Error:", err);
-    alert("Order Error");
-  }
+
+    alert("Demo Order Placed Successfully!");
+
+    dispatch(clearCart());
+
+    navigate("/ordersuccess");
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h2>Checkout</h2>
+
+      <p>Total Items: {cartItems.length}</p>
+
+      <h3>Total Price: ₹{totalPrice.toFixed(2)}</h3>
+
+      <button onClick={handleCheckout}>
+        Place Order
+      </button>
+    </div>
+  );
 };
+
+export default Checkout;
