@@ -48,6 +48,8 @@ const Checkout = () => {
     );
 
     const data = await response.json();
+    console.log("Status:", response.status);
+    console.log("Response:", data);
 
     if (response.ok) {
       alert("Order Saved Successfully!");
