@@ -17,7 +17,12 @@ const Home = () => {
         }
 
         const data = await response.json();
+        console.log("API Response:", data);
+        console.log("Number of Products:", data.length);
+
         setProducts(data.slice(0, 4));
+        console.log("Products saved:", data.slice(0, 4));
+
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
