@@ -15,19 +15,50 @@ const Checkout = () => {
     0
   );
 
-  const handleCheckout = () => {
-    if (!user) {
-      alert("Please login first.");
-      navigate("/login");
-      return;
+  const handleCheckout = async () => {
+  if (!user) {
+    alert("Please login first.");
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          items: cartItems,
+          totalAmount: totalPrice,
+          address: {
+            street: "Demo Street",
+            city: "Kozhikode",
+          },
+          paymentId: "DEMO_" + Date.now(),
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Order Saved Successfully!");
+
+      dispatch(clearCart());
+
+      navigate("/ordersuccess");
+    } else {
+      alert(data.message || "Order Failed");
     }
-
-    alert("Demo Order Placed Successfully!");
-
-    dispatch(clearCart());
-
-    navigate("/ordersuccess");
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Server Error");
+  }
+};
 
   return (
     <div style={{ padding: "30px" }}>
