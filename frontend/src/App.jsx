@@ -20,6 +20,7 @@ import Disclaimer from './pages/Disclaimer';
 import ReturnPolicy from './pages/ReturnPolicy';
 
 import AdminDashboard from './admin/AdminDashboard';
+import AdminLogin from './admin/AdminLogin';
 import AddProduct from './admin/AddProduct';
 import AdminProducts from './admin/AdminProducts';
 import EditProduct from './admin/EditProduct';
@@ -47,7 +48,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/return" element={<ReturnPolicy />} />
-
+          
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin/products" element={<AdminProducts />} />
