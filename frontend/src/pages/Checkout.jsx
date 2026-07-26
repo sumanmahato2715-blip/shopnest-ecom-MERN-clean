@@ -16,6 +16,7 @@ const Checkout = () => {
   );
 
   const handleCheckout = async () => {
+    alert("Button Clicked");
   if (!user) {
     alert("Please login first.");
     navigate("/login");
