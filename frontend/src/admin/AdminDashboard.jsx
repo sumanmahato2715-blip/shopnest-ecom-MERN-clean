@@ -37,9 +37,12 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const logout = () => {
-    localStorage.removeItem("isAdmin");
-    navigate("/admin-login");
-  };
+  localStorage.removeItem("isAdmin");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  navigate("/admin-login");
+};
 
   const cardStyle = {
     padding: "25px",

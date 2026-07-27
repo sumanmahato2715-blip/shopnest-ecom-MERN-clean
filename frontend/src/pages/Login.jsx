@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import '../styles/auth.css';
+import React, { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import "../styles/auth.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -13,26 +14,23 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        'https://shopnest-ecom-mern-clean-production.up.railway.app/api/auth/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       const data = await res.json();
 
       if (res.ok) {
         login(data);
-        alert("Login Successful!");
-        navigate('/');
+        alert("✅ Login Successful!");
+        navigate("/");
       } else {
         alert(data.message || "Login Failed");
       }

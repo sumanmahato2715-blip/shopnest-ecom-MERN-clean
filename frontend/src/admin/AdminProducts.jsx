@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const AdminProducts = () => {
   const { user } = useContext(AuthContext);
+  console.log("USER =", user);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -16,16 +17,44 @@ const AdminProducts = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you strictly sure you want to delete this?')) {
-      const res = await fetch(`/api/products/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
-      if (res.ok) {
-        setProducts(products.filter(p => p._id !== id));
-      }
+  const confirmDelete = window.confirm(
+    "Are you strictly sure you want to delete this?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    console.log("========== DELETE DEBUG ==========");
+    console.log("User:", user);
+    console.log("Token:", user?.token);
+
+    const res = await fetch(`/api/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    console.log("Status:", res.status);
+    console.log("Response:", data);
+
+    if (res.ok) {
+      alert("✅ Product deleted successfully.");
+
+      setProducts((prev) =>
+        prev.filter((product) => product._id !== id)
+      );
+    } else {
+      alert(data.message || "Delete failed.");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Server Error");
+  }
+};
 
   return (
     <div style={containerStyle}>

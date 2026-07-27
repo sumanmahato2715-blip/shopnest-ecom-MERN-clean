@@ -7,14 +7,48 @@ function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (email === "admin@shopnest.com" && password === "admin123") {
+    console.log("Login button clicked");
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log("Response Status:", response.status);
+      console.log("Response Data:", data);
+
+      if (!response.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      if (data.role !== "admin") {
+        alert("You are not an admin.");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("isAdmin", "true");
+
+      alert("Login Successful");
+
       navigate("/admin");
-    } else {
-      alert("Invalid Admin Login");
+    } catch (error) {
+      console.error(error);
+      alert("Login failed");
     }
   };
 
@@ -28,6 +62,7 @@ function AdminLogin() {
           placeholder="Admin Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <br />
@@ -38,12 +73,15 @@ function AdminLogin() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <br />
         <br />
 
-        <button type="submit">Login</button>
+        <button type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

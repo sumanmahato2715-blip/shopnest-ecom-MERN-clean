@@ -7,7 +7,7 @@ async function listUsers() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
 
-    const users = await User.find({}, { name: 1, email: 1, _id: 0 });
+    const users = await User.find({}, { name: 1, email: 1, role: 1, _id: 0 });
 
     console.log(users);
 
