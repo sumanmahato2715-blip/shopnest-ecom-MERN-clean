@@ -14,16 +14,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const res = await fetch(
+        "https://shopnest-ecom-mern-clean-production.up.railway.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -35,7 +38,7 @@ const Login = () => {
         alert(data.message || "Login Failed");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Login Error:", error);
       alert("Server Error");
     }
   };
@@ -66,7 +69,8 @@ const Login = () => {
         </button>
 
         <p>
-          Don't have an account? <Link to="/register">Register</Link>
+          Don't have an account?{" "}
+          <Link to="/register">Register</Link>
         </p>
       </form>
     </div>
