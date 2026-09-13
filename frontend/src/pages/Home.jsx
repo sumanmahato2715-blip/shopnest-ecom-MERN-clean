@@ -9,7 +9,7 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://shopnest-ecom-mern-clean-production.up.railway.app/api/products"
+          "https://shopnest-ecom-mern-clean.onrender.com/api/products"
         );
 
         if (!response.ok) {
@@ -17,12 +17,13 @@ const Home = () => {
         }
 
         const data = await response.json();
+
         console.log("API Response:", data);
         console.log("Number of Products:", data.length);
 
         setProducts(data.slice(0, 4));
-        console.log("Products saved:", data.slice(0, 4));
 
+        console.log("Products saved:", data.slice(0, 4));
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -48,7 +49,10 @@ const Home = () => {
         <div className="product-grid">
           {products.length > 0 ? (
             products.map((product) => (
-              <ProductCard key={product._id} product={product} />
+              <ProductCard
+                key={product._id}
+                product={product}
+              />
             ))
           ) : (
             <p>No products found.</p>

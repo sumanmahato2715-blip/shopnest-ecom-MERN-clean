@@ -256,7 +256,7 @@
               ]
             },
             "url": {
-              "raw": "http://localhost:5000/api/products/",
+              "raw": "http://api/products/",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -688,3 +688,4 @@
     }
   ]
 }
+
