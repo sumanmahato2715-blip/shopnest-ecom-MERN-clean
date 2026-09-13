@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import '../styles/auth.css';
+import React, { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import "../styles/auth.css";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -15,11 +16,11 @@ const Register = () => {
 
     try {
       const res = await fetch(
-        'https://shopnest-ecom-mern-clean-production.up.railway.app/api/auth/register',
+        "https://shopnest-ecom-mern-clean.onrender.com/api/auth/register",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             name,
@@ -32,15 +33,15 @@ const Register = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert('Registration Successful!');
+        alert("Registration Successful!");
         login(data);
-        navigate('/');
+        navigate("/");
       } else {
-        alert(data.message || 'Registration Failed');
+        alert(data.message || "Registration Failed");
       }
     } catch (error) {
-      console.error(error);
-      alert('Server Error');
+      console.error("Registration Error:", error);
+      alert("Server Error");
     }
   };
 
