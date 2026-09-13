@@ -15,7 +15,7 @@ const Login = () => {
 
     try {
       const res = await fetch(
-        "https://shopnest-ecom-mern-clean-production.up.railway.app/api/auth/login",
+        "https://shopnest-ecom-mern-clean.onrender.com/api/auth/login",
         {
           method: "POST",
           headers: {
