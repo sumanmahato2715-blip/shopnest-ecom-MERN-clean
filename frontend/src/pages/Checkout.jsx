@@ -17,54 +17,56 @@ const Checkout = () => {
 
   const handleCheckout = async () => {
     alert("Button Clicked");
-  if (!user) {
-    alert("Please login first.");
-    navigate("/login");
-    return;
-  }
 
-  try {
-    const response = await fetch(
-      "https://shopnest-ecom-mern-clean-production.up.railway.app/api/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          items: cartItems,
-          totalAmount: totalPrice,
-          address: {
-           fullName: "Suman Kumari",
-           street: "Demo Street",
-           city: "Kozhikode",
-           postalCode: "673001",
-           country: "India",
-},
-          paymentId: "DEMO_" + Date.now(),
-        }),
-      }
-    );
-
-    const data = await response.json();
-    console.log("Status:", response.status);
-    console.log("Response:", data);
-
-    if (response.ok) {
-      alert("Order Saved Successfully!");
-
-      dispatch(clearCart());
-
-      navigate("/ordersuccess");
-    } else {
-      alert(data.message || "Order Failed");
+    if (!user) {
+      alert("Please login first.");
+      navigate("/login");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    alert("Server Error");
-  }
-};
+
+    try {
+      const response = await fetch(
+        "https://shopnest-ecom-mern-clean.onrender.com/api/orders",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            items: cartItems,
+            totalAmount: totalPrice,
+            address: {
+              fullName: "Suman Kumari",
+              street: "Demo Street",
+              city: "Kozhikode",
+              postalCode: "673001",
+              country: "India",
+            },
+            paymentId: "DEMO_" + Date.now(),
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      console.log("Status:", response.status);
+      console.log("Response:", data);
+
+      if (response.ok) {
+        alert("Order Saved Successfully!");
+
+        dispatch(clearCart());
+
+        navigate("/ordersuccess");
+      } else {
+        alert(data.message || "Order Failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server Error");
+    }
+  };
 
   return (
     <div style={{ padding: "30px" }}>
