@@ -6,7 +6,9 @@ import { AuthContext } from "../context/AuthContext";
 
 const Checkout = () => {
   const { user } = useContext(AuthContext);
+
   const cartItems = useSelector((state) => state.cart.cartItems);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,8 +18,6 @@ const Checkout = () => {
   );
 
   const handleCheckout = async () => {
-    alert("Button Clicked");
-
     if (!user) {
       alert("Please login first.");
       navigate("/login");
@@ -29,13 +29,16 @@ const Checkout = () => {
         "https://shopnest-ecom-mern-clean.onrender.com/api/orders",
         {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
+
           body: JSON.stringify({
             items: cartItems,
             totalAmount: totalPrice,
+
             address: {
               fullName: "Suman Kumari",
               street: "Demo Street",
@@ -43,6 +46,7 @@ const Checkout = () => {
               postalCode: "673001",
               country: "India",
             },
+
             paymentId: "DEMO_" + Date.now(),
           }),
         }
@@ -54,7 +58,8 @@ const Checkout = () => {
       console.log("Response:", data);
 
       if (response.ok) {
-        alert("Order Saved Successfully!");
+        alert("Payment Successful!");
+        alert("Order Placed Successfully!");
 
         dispatch(clearCart());
 
@@ -63,7 +68,7 @@ const Checkout = () => {
         alert(data.message || "Order Failed");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Order Error:", error);
       alert("Server Error");
     }
   };
