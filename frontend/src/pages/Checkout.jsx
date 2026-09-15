@@ -13,18 +13,30 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
+    (total, item) => total + item.price * item.qty,
     0
   );
 
   const handleCheckout = async () => {
+    console.log("========== PLACE ORDER CLICKED ==========");
+    console.log("User:", user);
+    console.log("Cart Items:", cartItems);
+    console.log("Total Price:", totalPrice);
+
     if (!user) {
       alert("Please login first.");
       navigate("/login");
       return;
     }
 
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
     try {
+      console.log("Sending order to backend...");
+
       const response = await fetch(
         "https://shopnest-ecom-mern-clean.onrender.com/api/orders",
         {
@@ -40,7 +52,7 @@ const Checkout = () => {
             totalAmount: totalPrice,
 
             address: {
-              fullName: "Suman Kumari",
+              fullName: user.name || "Suman Kumari",
               street: "Demo Street",
               city: "Kozhikode",
               postalCode: "673001",
@@ -52,14 +64,14 @@ const Checkout = () => {
         }
       );
 
+      console.log("Backend Status:", response.status);
+
       const data = await response.json();
 
-      console.log("Status:", response.status);
-      console.log("Response:", data);
+      console.log("Backend Response:", data);
 
       if (response.ok) {
-        alert("Payment Successful!");
-        alert("Order Placed Successfully!");
+        alert("Payment Successful! Order Placed Successfully! 🎉");
 
         dispatch(clearCart());
 
@@ -68,8 +80,8 @@ const Checkout = () => {
         alert(data.message || "Order Failed");
       }
     } catch (error) {
-      console.error("Order Error:", error);
-      alert("Server Error");
+      console.error("ORDER ERROR:", error);
+      alert("Server Error: " + error.message);
     }
   };
 
@@ -77,11 +89,23 @@ const Checkout = () => {
     <div style={{ padding: "30px" }}>
       <h2>Checkout</h2>
 
-      <p>Total Items: {cartItems.length}</p>
+      <p>
+        <strong>Total Items:</strong> {cartItems.length}
+      </p>
 
-      <h3>Total Price: ₹{totalPrice.toFixed(2)}</h3>
+      <h3>
+        Total Price: ₹{totalPrice.toFixed(2)}
+      </h3>
 
-      <button onClick={handleCheckout}>
+      <button
+        type="button"
+        onClick={handleCheckout}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          cursor: "pointer",
+        }}
+      >
         Place Order
       </button>
     </div>
