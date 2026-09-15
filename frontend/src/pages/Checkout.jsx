@@ -18,13 +18,16 @@ const Checkout = () => {
   );
 
   const handleCheckout = async () => {
-    console.log("========== PLACE ORDER CLICKED ==========");
-    console.log("User:", user);
-    console.log("Cart Items:", cartItems);
-    console.log("Total Price:", totalPrice);
+    console.log("PLACE ORDER CLICKED");
 
     if (!user) {
       alert("Please login first.");
+      navigate("/login");
+      return;
+    }
+
+    if (!user.token) {
+      alert("Login session expired. Please login again.");
       navigate("/login");
       return;
     }
@@ -35,22 +38,19 @@ const Checkout = () => {
     }
 
     try {
-      console.log("Sending order to backend...");
+      console.log("Sending order to Render backend...");
 
       const response = await fetch(
         "https://shopnest-ecom-mern-clean.onrender.com/api/orders",
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-
           body: JSON.stringify({
             items: cartItems,
             totalAmount: totalPrice,
-
             address: {
               fullName: user.name || "Suman Kumari",
               street: "Demo Street",
@@ -58,20 +58,19 @@ const Checkout = () => {
               postalCode: "673001",
               country: "India",
             },
-
             paymentId: "DEMO_" + Date.now(),
           }),
         }
       );
 
-      console.log("Backend Status:", response.status);
+      console.log("Response Status:", response.status);
 
       const data = await response.json();
 
-      console.log("Backend Response:", data);
+      console.log("Response Data:", data);
 
       if (response.ok) {
-        alert("Payment Successful! Order Placed Successfully! 🎉");
+        alert("Payment Successful! Order Placed Successfully!");
 
         dispatch(clearCart());
 
@@ -80,7 +79,7 @@ const Checkout = () => {
         alert(data.message || "Order Failed");
       }
     } catch (error) {
-      console.error("ORDER ERROR:", error);
+      console.error("Checkout Error:", error);
       alert("Server Error: " + error.message);
     }
   };
@@ -89,21 +88,18 @@ const Checkout = () => {
     <div style={{ padding: "30px" }}>
       <h2>Checkout</h2>
 
-      <p>
-        <strong>Total Items:</strong> {cartItems.length}
-      </p>
+      <p>Total Items: {cartItems.length}</p>
 
-      <h3>
-        Total Price: ₹{totalPrice.toFixed(2)}
-      </h3>
+      <h3>Total Price: ₹{totalPrice.toFixed(2)}</h3>
 
       <button
         type="button"
         onClick={handleCheckout}
         style={{
-          padding: "10px 20px",
-          fontSize: "16px",
+          padding: "12px 25px",
+          fontSize: "18px",
           cursor: "pointer",
+          marginTop: "15px",
         }}
       >
         Place Order
